@@ -1,0 +1,37 @@
+{
+  "name": "cc-multi-ai-review-agent",
+  "version": "0.1.0",
+  "description": "Multi-model AI code review CLI (Cursor agent CLI) for the Claude Code /multi-ai-review-agent skill.",
+  "type": "module",
+  "private": false,
+  "bin": {
+    "cc-multi-ai-review-agent": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "esbuild src/cli.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/cli.mjs --banner:js='#!/usr/bin/env node'",
+    "sync": "mkdir -p \"$HOME/.claude/skills/multi-ai-review-agent/scripts\" && cp dist/cli.mjs \"$HOME/.claude/skills/multi-ai-review-agent/scripts/cli.mjs\" && cp skill/SKILL.md \"$HOME/.claude/skills/multi-ai-review-agent/SKILL.md\"",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "keywords": [
+    "claude-code",
+    "code-review",
+    "multi-agent",
+    "cursor",
+    "cursor-agent"
+  ],
+  "license": "MIT",
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}
