@@ -20,10 +20,11 @@ actionable findings before presenting them.
 Each reviewer runs read-only: `agent --print --output-format text --mode ask
 --trust --model <id>`, with the diff piped in on stdin.
 
-Set the CLI path once:
+Set the CLI path once — `DIR` is **this skill's own directory** (the directory
+containing this SKILL.md, wherever the skill was installed):
 
 ```bash
-DIR="$HOME/.claude/skills/multi-ai-review-agent"
+DIR="<absolute path to this skill's directory>"
 ```
 
 ## Procedure
@@ -115,8 +116,8 @@ the lineup, verdicts, and what was addressed vs. ignored.
 - Reviewers run read-only (`--mode ask`); `--trust` only grants workspace trust
   so the headless run isn't blocked, not command execution.
 - You must be signed in to Cursor (`agent status`); if not, run `agent login`.
-- Rebuild + resync the CLI after changing the engine:
-  `cd ~/Developer/cc-multi-ai-review-agent && pnpm build && pnpm sync`.
+- The bundled `scripts/cli.mjs` is a committed build output. After changing the
+  engine (`src/`), run `pnpm build` and commit the regenerated bundle.
 - Data egress: running a review sends the full branch diff (up to the configured
   limits) to Cursor's servers and the model providers behind the models you
   select. Don't run this skill on repos whose diffs must not leave the machine.

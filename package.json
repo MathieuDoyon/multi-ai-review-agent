@@ -1,18 +1,23 @@
 {
   "name": "cc-multi-ai-review-agent",
   "version": "0.1.0",
-  "description": "Multi-model AI code review CLI (Cursor agent CLI) for the Claude Code /multi-ai-review-agent skill.",
+  "description": "Multi-model AI code review engine (Cursor agent CLI) for the Claude Code /multi-ai-review-agent skill, distributed as a Claude Code plugin.",
   "type": "module",
-  "private": false,
-  "bin": {
-    "cc-multi-ai-review-agent": "./dist/cli.mjs"
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MathieuDoyon/cc-multi-ai-review-agent.git"
   },
-  "files": [
-    "dist"
-  ],
+  "homepage": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent#readme",
+  "bugs": {
+    "url": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "build": "esbuild src/cli.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/cli.mjs --banner:js='#!/usr/bin/env node'",
-    "sync": "mkdir -p \"$HOME/.claude/skills/multi-ai-review-agent/scripts\" && cp dist/cli.mjs \"$HOME/.claude/skills/multi-ai-review-agent/scripts/cli.mjs\" && cp skill/SKILL.md \"$HOME/.claude/skills/multi-ai-review-agent/SKILL.md\"",
+    "build": "esbuild src/cli.ts --bundle --platform=node --target=node20 --format=esm --outfile=skills/multi-ai-review-agent/scripts/cli.mjs --banner:js='#!/usr/bin/env node'",
+    "sync": "mkdir -p \"$HOME/.claude/skills/multi-ai-review-agent/scripts\" && cp skills/multi-ai-review-agent/scripts/cli.mjs \"$HOME/.claude/skills/multi-ai-review-agent/scripts/cli.mjs\" && cp skills/multi-ai-review-agent/SKILL.md \"$HOME/.claude/skills/multi-ai-review-agent/SKILL.md\"",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run"
@@ -25,9 +30,6 @@
     "cursor-agent"
   ],
   "license": "MIT",
-  "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
-  },
   "devDependencies": {
     "@types/node": "^26.0.0",
     "esbuild": "^0.24.0",
