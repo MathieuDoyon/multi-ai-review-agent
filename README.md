@@ -7,15 +7,9 @@ reviews one branch against a base using several
 deterministic Markdown report, and asks the host agent to ground-truth actionable
 findings before presenting them.
 
-This is the Cursor `agent` port of
-[`cc-multi-ai-review`](https://github.com/MathieuDoyon/cc-multi-ai-review), which
-uses the `pi` CLI. The two skills are named separately and can be installed side
-by side.
-
 > **Data egress:** Running a review sends the full branch diff, up to the
 > configured limits, to Cursor's servers and the model providers behind the
-> models you select. Do not run it on repositories whose diffs must not leave
-> the machine.
+> models you select.
 
 ## Prerequisite
 
@@ -29,14 +23,12 @@ agent status
 
 ## Install
 
-The marketplace and plugin are both named `multi-ai-review-agent`. The GitHub
-repository still has its original `cc-` prefix until the planned repository
-rename, so the source command temporarily retains that URL.
+The marketplace and plugin are both named `multi-ai-review-agent`.
 
 ### Codex
 
 ```sh
-codex plugin marketplace add MathieuDoyon/cc-multi-ai-review-agent --ref main
+codex plugin marketplace add MathieuDoyon/multi-ai-review-agent --ref main
 codex plugin marketplace list
 codex plugin list
 codex plugin add multi-ai-review-agent@multi-ai-review-agent
@@ -57,7 +49,7 @@ codex plugin add multi-ai-review-agent@multi-ai-review-agent
 ### Claude Code
 
 ```text
-/plugin marketplace add MathieuDoyon/cc-multi-ai-review-agent
+/plugin marketplace add MathieuDoyon/multi-ai-review-agent
 /plugin install multi-ai-review-agent@multi-ai-review-agent
 ```
 

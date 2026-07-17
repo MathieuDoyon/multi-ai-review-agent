@@ -6,11 +6,11 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MathieuDoyon/cc-multi-ai-review-agent.git"
+    "url": "git+https://github.com/MathieuDoyon/multi-ai-review-agent.git"
   },
-  "homepage": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent#readme",
+  "homepage": "https://github.com/MathieuDoyon/multi-ai-review-agent#readme",
   "bugs": {
-    "url": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent/issues"
+    "url": "https://github.com/MathieuDoyon/multi-ai-review-agent/issues"
   },
   "engines": {
     "node": ">=20"

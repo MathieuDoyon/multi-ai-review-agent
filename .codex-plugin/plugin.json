@@ -6,8 +6,8 @@
     "name": "Mathieu Doyon",
     "url": "https://github.com/MathieuDoyon"
   },
-  "homepage": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent",
-  "repository": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent",
+  "homepage": "https://github.com/MathieuDoyon/multi-ai-review-agent",
+  "repository": "https://github.com/MathieuDoyon/multi-ai-review-agent",
   "license": "MIT",
   "keywords": ["code-review", "multi-agent", "cursor", "cursor-agent", "skill"],
   "skills": "./skills/",

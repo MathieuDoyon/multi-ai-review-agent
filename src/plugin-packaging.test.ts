@@ -63,12 +63,20 @@ describe("cross-host plugin packaging", () => {
     expect(skill).toContain("$multi-ai-review-agent");
   });
 
-  it("documents Codex installation with the neutral marketplace selector", async () => {
+  it("uses the renamed GitHub repository in manifests and installation docs", async () => {
+    const packageJson = await readJson("package.json");
+    const claudePlugin = await readJson(".claude-plugin/plugin.json");
+    const codexPlugin = await readJson(".codex-plugin/plugin.json");
     const readme = await readFile(resolve(root, "README.md"), "utf8");
+    const repository = packageJson.repository as Record<string, unknown>;
 
     expect(readme).toMatch(/^# multi-ai-review-agent/m);
-    expect(readme).toContain("codex plugin marketplace add MathieuDoyon/cc-multi-ai-review-agent --ref main");
+    expect(repository.url).toBe("git+https://github.com/MathieuDoyon/multi-ai-review-agent.git");
+    expect(claudePlugin.repository).toBe("https://github.com/MathieuDoyon/multi-ai-review-agent");
+    expect(codexPlugin.repository).toBe("https://github.com/MathieuDoyon/multi-ai-review-agent");
+    expect(readme).toContain("codex plugin marketplace add MathieuDoyon/multi-ai-review-agent --ref main");
     expect(readme).toContain("codex plugin add multi-ai-review-agent@multi-ai-review-agent");
+    expect(readme).not.toContain("cc-multi-ai-review-agent");
   });
 
   it("validates Codex packaging and version parity in automation", async () => {

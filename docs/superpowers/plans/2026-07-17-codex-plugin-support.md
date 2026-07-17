@@ -10,8 +10,7 @@
 
 ## Global Constraints
 
-- Use `multi-ai-review-agent` as the plugin and marketplace identity; do not use `cc-multi-ai-review-agent` there.
-- Keep the current GitHub URL until the repository is actually renamed.
+- Use `multi-ai-review-agent` as the plugin, marketplace, package, and GitHub repository identity.
 - Preserve existing Claude Code installation support.
 - Use version `0.1.0` consistently across package and host manifests.
 
