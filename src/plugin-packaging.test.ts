@@ -75,7 +75,9 @@ describe("cross-host plugin packaging", () => {
     expect(claudePlugin.repository).toBe("https://github.com/MathieuDoyon/multi-ai-review-agent");
     expect(codexPlugin.repository).toBe("https://github.com/MathieuDoyon/multi-ai-review-agent");
     expect(readme).toContain("codex plugin marketplace add MathieuDoyon/multi-ai-review-agent --ref main");
+    expect(readme).toContain("codex plugin marketplace upgrade multi-ai-review-agent");
     expect(readme).toContain("codex plugin add multi-ai-review-agent@multi-ai-review-agent");
+    expect(readme).not.toContain("codex plugin remove multi-ai-review-agent@multi-ai-review-agent");
     expect(readme).not.toContain("cc-multi-ai-review-agent");
   });
 
