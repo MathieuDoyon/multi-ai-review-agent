@@ -1,11 +1,11 @@
 {
-  "name": "cc-multi-ai-review-agent",
+  "name": "multi-ai-review-agent",
   "owner": {
     "name": "Mathieu Doyon",
     "url": "https://github.com/MathieuDoyon"
   },
   "metadata": {
-    "description": "Marketplace for the multi-ai-review-agent Claude Code plugin.",
+    "description": "Marketplace for the multi-ai-review-agent code review plugin.",
     "version": "0.1.0"
   },
   "plugins": [

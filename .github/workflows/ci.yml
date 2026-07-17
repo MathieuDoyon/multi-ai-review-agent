@@ -28,6 +28,8 @@ jobs:
 
       - run: pnpm typecheck
 
+      - run: pnpm validate:packaging
+
       - run: pnpm test:run
 
       - run: pnpm build
@@ -39,5 +41,5 @@ jobs:
             exit 1
           fi
 
-      - name: Validate plugin manifests
+      - name: Validate Claude Code plugin manifests
         run: npx --yes @anthropic-ai/claude-code@latest plugin validate .
