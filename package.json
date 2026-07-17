@@ -1,6 +1,6 @@
 {
   "name": "multi-ai-review-agent",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Multi-model AI code review engine powered by the Cursor agent CLI, distributed as a Claude Code and Codex plugin.",
   "type": "module",
   "private": true,
