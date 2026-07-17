@@ -37,12 +37,12 @@ codex plugin add multi-ai-review-agent@multi-ai-review-agent
 Start a new Codex session after installation. You can also open Codex and use
 `/plugins` to browse, install, or enable the plugin.
 
-Upgrade the Git-backed marketplace and reinstall when a new plugin version is
-released:
+The marketplace tracks protected `main`, so users do not need to change a tag or
+version when a new release is published. Refresh the marketplace snapshot and
+reinstall the plugin, then start a new Codex session:
 
 ```sh
 codex plugin marketplace upgrade multi-ai-review-agent
-codex plugin remove multi-ai-review-agent@multi-ai-review-agent
 codex plugin add multi-ai-review-agent@multi-ai-review-agent
 ```
 
