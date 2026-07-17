@@ -1,7 +1,7 @@
 {
   "name": "multi-ai-review-agent",
   "description": "Adversarial multi-AI peer review of a code change via the Cursor agent CLI across diverse model families, synthesized into one deterministic Markdown report.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Mathieu Doyon",
     "url": "https://github.com/MathieuDoyon"
