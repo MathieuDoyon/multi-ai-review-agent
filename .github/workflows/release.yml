@@ -33,14 +33,27 @@ jobs:
       - name: Check committed CLI bundle is up to date
         run: git diff --exit-code skills/multi-ai-review-agent/scripts/cli.mjs
 
-      - name: Check tag matches plugin version
+      - name: Check tag matches package and plugin versions
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          VERSION=$(node -p "require('./.claude-plugin/plugin.json').version")
-          if [ "$TAG" != "$VERSION" ]; then
-            echo "::error::Tag v$TAG does not match .claude-plugin/plugin.json version $VERSION."
-            exit 1
-          fi
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          CLAUDE_VERSION=$(node -p "require('./.claude-plugin/plugin.json').version")
+          CLAUDE_MARKETPLACE_VERSION=$(node -p "require('./.claude-plugin/marketplace.json').metadata.version")
+          CODEX_VERSION=$(node -p "require('./.codex-plugin/plugin.json').version")
+
+          for ENTRY in \
+            "package.json:$PACKAGE_VERSION" \
+            ".claude-plugin/plugin.json:$CLAUDE_VERSION" \
+            ".claude-plugin/marketplace.json:$CLAUDE_MARKETPLACE_VERSION" \
+            ".codex-plugin/plugin.json:$CODEX_VERSION"
+          do
+            FILE="${ENTRY%%:*}"
+            VERSION="${ENTRY#*:}"
+            if [ "$TAG" != "$VERSION" ]; then
+              echo "::error::Tag v$TAG does not match $FILE version $VERSION."
+              exit 1
+            fi
+          done
 
       - name: Create GitHub Release
         env:

@@ -1,29 +1,33 @@
 {
-  "name": "cc-multi-ai-review-agent",
+  "name": "multi-ai-review-agent",
   "version": "0.1.0",
-  "description": "Multi-model AI code review engine (Cursor agent CLI) for the Claude Code /multi-ai-review-agent skill, distributed as a Claude Code plugin.",
+  "description": "Multi-model AI code review engine powered by the Cursor agent CLI, distributed as a Claude Code and Codex plugin.",
   "type": "module",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MathieuDoyon/cc-multi-ai-review-agent.git"
+    "url": "git+https://github.com/MathieuDoyon/multi-ai-review-agent.git"
   },
-  "homepage": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent#readme",
+  "homepage": "https://github.com/MathieuDoyon/multi-ai-review-agent#readme",
   "bugs": {
-    "url": "https://github.com/MathieuDoyon/cc-multi-ai-review-agent/issues"
+    "url": "https://github.com/MathieuDoyon/multi-ai-review-agent/issues"
   },
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "build": "esbuild src/cli.ts --bundle --platform=node --target=node20 --format=esm --outfile=skills/multi-ai-review-agent/scripts/cli.mjs --banner:js='#!/usr/bin/env node'",
-    "sync": "mkdir -p \"$HOME/.claude/skills/multi-ai-review-agent/scripts\" && cp skills/multi-ai-review-agent/scripts/cli.mjs \"$HOME/.claude/skills/multi-ai-review-agent/scripts/cli.mjs\" && cp skills/multi-ai-review-agent/SKILL.md \"$HOME/.claude/skills/multi-ai-review-agent/SKILL.md\"",
+    "sync": "pnpm sync:claude",
+    "sync:claude": "mkdir -p \"$HOME/.claude/skills/multi-ai-review-agent/scripts\" && cp skills/multi-ai-review-agent/scripts/cli.mjs \"$HOME/.claude/skills/multi-ai-review-agent/scripts/cli.mjs\" && cp skills/multi-ai-review-agent/SKILL.md \"$HOME/.claude/skills/multi-ai-review-agent/SKILL.md\"",
+    "sync:codex": "mkdir -p \"$HOME/.agents/skills/multi-ai-review-agent/scripts\" && cp skills/multi-ai-review-agent/scripts/cli.mjs \"$HOME/.agents/skills/multi-ai-review-agent/scripts/cli.mjs\" && cp skills/multi-ai-review-agent/SKILL.md \"$HOME/.agents/skills/multi-ai-review-agent/SKILL.md\"",
+    "validate:packaging": "vitest run src/plugin-packaging.test.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run"
   },
   "keywords": [
     "claude-code",
+    "codex",
     "code-review",
     "multi-agent",
     "cursor",

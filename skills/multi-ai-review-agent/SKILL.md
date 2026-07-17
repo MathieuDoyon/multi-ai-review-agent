@@ -3,7 +3,7 @@ name: multi-ai-review-agent
 description: >-
   Adversarial multi-AI peer review of a code change via the Cursor `agent` CLI
   across diverse model families (GPT/Codex, Claude/Opus, Grok, and more), with
-  interactive model selection (AskUserQuestion), selectable thinking level,
+  interactive model selection, selectable thinking level,
   base-ref override, extra focus, and a remembered last-used lineup. Use when the
   user asks for a "multi-AI review", "cross-AI review", "peer review", "review
   with cursor / agent / multiple models", or wants an independent second/third
@@ -14,7 +14,7 @@ description: >-
 
 This skill drives a bundled Node CLI at `scripts/cli.mjs` that discovers Cursor
 `agent` models, runs the selected ones in parallel forcing a JSON schema, and
-returns a deterministic Markdown report. Claude then **ground-truths** the
+returns a deterministic Markdown report. The host agent then **ground-truths** the
 actionable findings before presenting them.
 
 Each reviewer runs read-only: `agent --print --output-format text --mode ask
@@ -31,8 +31,9 @@ DIR="<absolute path to this skill's directory>"
 
 ### 1. Parse invocation args
 
-Invocation may include a base ref and/or extra focus:
-`/multi-ai-review-agent [baseRef] [focus text…]`.
+Invocation may include a base ref and/or extra focus. In Claude Code, use
+`/multi-ai-review-agent [baseRef] [focus text…]`. In Codex, invoke
+`$multi-ai-review-agent` and include `[baseRef] [focus text…]` in the prompt.
 - A token that looks like a git ref (contains `/` such as `origin/main`, or is a
   bare `main`/`master`/tag) → `baseRef`.
 - All remaining words → `focus`.
@@ -48,20 +49,21 @@ the rest; each has `family`, `label`, `flagship`, `variants`, `efforts`),
 `lastModels`, `baseRef` (`ok` + `ref`/`mergeBase`, or `ok:false` + `message`),
 and `diffStat`.
 
-### 3. Ask the user (AskUserQuestion)
+### 3. Ask the user
 
-Make a single `AskUserQuestion` call:
+Use the host's structured user-input mechanism when available and ask all
+questions in one interaction. Otherwise, ask the questions conversationally.
 
 - **Q1 "Which models should review this?" (multiSelect: true).**
   Options = the flagship of each of the **first up to 4** families from `prep`.
   - Label each `Label (flagship-id)`, e.g. `Opus 4.8 (claude-opus-4-8-high)`
     using the family's `label` and `flagship`.
   - For families whose flagship appears in `lastModels`, order them first and
-    append ` · last` to the label. (AskUserQuestion cannot pre-check options, so
-    surfacing them first + labeled is how "remember last" shows up.)
-  - The auto-provided **Other** lets the user type exact model IDs or family
-    names not shown; map that text to concrete IDs using the `prep` `families`
-    list (a family `label`/name → its `flagship`; an exact id → itself).
+    append ` · last` to the label. If the host cannot preselect options, surfacing
+    them first and labeling them is how "remember last" shows up.
+  - Offer **Other** when the host supports it so the user can type exact model
+    IDs or family names not shown; map that text to concrete IDs using the `prep`
+    `families` list (a family `label`/name → its `flagship`; an exact id → itself).
 - **Q2 "Thinking level?" (single-select).** Options: `medium (Recommended)`,
   `high`, `low`. Cursor bakes effort into the model id, so the engine maps this
   level to each chosen family's matching effort variant (e.g. `high` →
@@ -92,7 +94,7 @@ node "$DIR/scripts/cli.mjs" run \
 This prints the deterministic report (findings table with severity, confidence,
 consensus models, location, recommendation, action; a "Do Not Address Yet"
 section; and any reviewer failures) and records the resolved lineup globally for
-next time. Run it with `run_in_background: true` if you want to keep working; it
+next time. Use the host's background execution support when available; it
 typically takes 1–3 minutes for three models. Large diffs may need a higher
 timeout (default 240s), e.g. `--timeout 480`.
 

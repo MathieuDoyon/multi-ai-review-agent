@@ -21,7 +21,7 @@ export async function resolveBaseRef(
 
   return {
     ok: false,
-    message: "Could not resolve a base ref. Try /multi-ai-review origin/main.",
+    message: "Could not resolve a base ref. Try invoking multi-ai-review-agent with origin/main.",
   };
 }
 
